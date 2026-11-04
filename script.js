@@ -11,10 +11,23 @@ const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&
 const fmt=d=>{const x=new Date(d);return !d||isNaN(x)?"وقت النشر غير متاح":x.toLocaleString("ar-EG",{dateStyle:"medium",timeStyle:"short"});};
 let allNews=[];let activeFilter="all";const metaCache=new Map();
 function safeUrl(value){try{const u=new URL(value);return ["http:","https:"].includes(u.protocol)?u.href:"";}catch{return "";}}
-function categoryVisual(category){return category==="egypt"?"مصر":category==="local"?"محليات":"العالم";}
+const topicImages=[
+ {key:"football",label:"رياضة",words:["كرة","مباراة","الدوري","منتخب","لاعب","مدرب","أهداف","بطولة","كأس","فيفا","ريال مدريد","الأهلي","الزمالك"],url:"https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1000&q=80"},
+ {key:"politics",label:"سياسة",words:["رئيس","وزير","حكومة","انتخابات","برلمان","كونجرس","سياسي","دبلوماس","سياسة","اتفاق","ترمب","ترامب"],url:"https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1000&q=80"},
+ {key:"economy",label:"اقتصاد",words:["اقتصاد","استثمار","أسعار","جنيه","دولار","بنك","بورصة","تجارة","وظائف","رواتب","نفط"],url:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1000&q=80"},
+ {key:"technology",label:"تكنولوجيا",words:["ذكاء اصطناعي","تقنية","تكنولوجيا","إنترنت","هاتف","تطبيق","اختراق","قراصنة","رقمي","روبوت"],url:"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80"},
+ {key:"health",label:"صحة",words:["صحة","مرض","مستشفى","طبيب","علاج","دواء","فيروس","لقاح"],url:"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"},
+ {key:"education",label:"تعليم",words:["تعليم","جامعة","مدرسة","طلاب","امتحان","دراسة"],url:"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1000&q=80"},
+ {key:"weather",label:"طقس",words:["طقس","الأرصاد","درجات الحرارة","أمطار","رياح","حرارة","عاصفة"],url:"https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=1000&q=80"},
+ {key:"culture",label:"ثقافة وفنون",words:["فن","فنان","فيلم","مسلسل","مهرجان","موسيقى","ثقافة","كتاب","مسرح"],url:"https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1000&q=80"},
+ {key:"world",label:"العالم",words:["العالم","دولي","أمم المتحدة","أمريكا","إيران","إسرائيل","أوكرانيا","روسيا","الصين","فلسطين","غزة"],url:"https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1000&q=80"},
+ {key:"local",label:"محليات",words:["كفر الشيخ","برج البرلس","بلطيم","مطوبس","دسوق","فوه","الحامول","بيلا","قلين","سيدي سالم"],url:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1000&q=80"}
+];
+const defaultTopic={key:"general",label:"أخبار",url:"https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1000&q=80"};
+function topicFor(n){const t=((n.title||"")+" "+(n.description||"")).toLocaleLowerCase("ar");return topicImages.find(x=>x.words.some(w=>t.includes(w)))||defaultTopic;}
 function card(n,i){
- const image=safeUrl(n.image);
- const visual=image?'<div class="card-image"><img src="'+esc(image)+'" alt="" loading="lazy"><span>'+esc(n.categoryLabel||"أخبار")+'</span></div>':'<div class="card-image no-image" data-image-for="'+i+'"><span>'+esc(n.categoryLabel||"أخبار")+'</span><b>'+esc(categoryVisual(n.category))+'</b></div>';
+ const topic=topicFor(n);
+ const visual='<div class="card-image topic-'+topic.key+'"><img src="'+topic.url+'" alt="صورة توضيحية لقسم '+topic.label+'" loading="lazy"><span>'+topic.label+'</span></div>';
  return '<article class="news-card" data-category="'+esc(n.category)+'"><button class="story-open" type="button" data-index="'+i+'" aria-label="اقرأ '+esc(n.title)+'">'+visual+'<span class="story-title">'+esc(n.title)+'</span></button><div class="card-body"><small>'+esc(n.source||"المصدر الأصلي")+' · '+esc(fmt(n.publishedAt))+'</small><p>'+esc(n.description||"افتح الخبر لقراءة التفاصيل المتاحة.")+'</p><button class="text-link" type="button" data-index="'+i+'">اقرأ الخبر داخل الموقع ←</button></div></article>';
 }
 function visibleNews(){return allNews.map((n,i)=>({...n,_index:i})).filter(n=>activeFilter==="all"||n.category===activeFilter);}
