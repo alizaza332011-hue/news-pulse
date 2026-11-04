@@ -1,54 +1,80 @@
+
 const FEEDS = [
-  { key: "local", label: "محليات", q: '"كفر الشيخ" OR بلطيم OR "برج البرلس"' },
-  { key: "egypt", label: "مصر", q: "أخبار مصر" },
-  { key: "world", label: "العالم", q: "أخبار العالم" }
+  {
+    key: "egypt",
+    label: "مصر",
+    url: "https://alikhbariya.net/feeds/countries/eg.xml"
+  },
+  {
+    key: "world",
+    label: "العالم",
+    url: "https://alikhbariya.net/feeds/countries/xw.xml"
+  },
+  {
+    key: "local",
+    label: "محليات",
+    url: "https://alikhbariya.net/feeds/countries/eg.xml",
+    localOnly: true
+  }
 ];
 
-function decodeXml(s = "") {
-  return s
+const LOCAL_WORDS = [
+  "كفر الشيخ", "برج البرلس", "بلطيم",
+  "مطوبس", "دسوق", "فوه", "الحامول",
+  "بيلا", "قلين", "سيدي سالم", "الرياض"
+];
+
+function clean(value = "") {
+  return value
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/<[^>]*>/g, " ")
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
     .replace(/&#39;|&apos;/g, "'")
-    .replace(/<[^>]*>/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
 
-function tag(xml, name) {
-  const m = xml.match(new RegExp(
-    `<${name}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${name}>`, "i"
-  ));
-  return m ? decodeXml(m[1]) : "";
+function getTag(xml, name) {
+  const match = xml.match(
+    new RegExp(
+      `<${name}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${name}>`,
+      "i"
+    )
+  );
+  return match ? clean(match[1]) : "";
 }
 
 function parseFeed(xml, feed) {
-  return [...xml.matchAll(/<item(?:\s[^>]*)?>([\s\S]*?)<\/item>/gi)]
-    .map(m => {
-      const x = m[1];
-      const title = tag(x, "title");
-      const link = tag(x, "link");
-      return {
-        title,
-        link,
-        source: tag(x, "source") || "Google News",
-        description: tag(x, "description"),
-        publishedAt: tag(x, "pubDate"),
-        category: feed.key,
-        categoryLabel: feed.label
-      };
-    })
-    .filter(x => x.title && /^https?:\/\//i.test(x.link));
+  const entries = [...xml.matchAll(
+    /<item(?:\s[^>]*)?>([\s\S]*?)<\/item>/gi
+  )];
+
+  return entries.map(match => {
+    const item = match[1];
+
+    return {
+      title: getTag(item, "title"),
+      link: getTag(item, "link"),
+      source: getTag(item, "source") || "الإخبارية",
+      description: getTag(item, "description"),
+      publishedAt: getTag(item, "pubDate"),
+      category: feed.key,
+      categoryLabel: feed.label
+    };
+  }).filter(item =>
+    item.title && /^https?:\/\//i.test(item.link)
+  );
 }
 
 async function getFeed(feed) {
-  const url =
-    `https://news.google.com/rss/search?q=${encodeURIComponent(feed.q)}&hl=ar&gl=EG&ceid=EG:ar`;
-
-  const response = await fetch(url, {
-    headers: { "Accept": "application/rss+xml, application/xml, text/xml" }
+  const response = await fetch(feed.url, {
+    headers: {
+      "User-Agent": "NewsPulse/1.0",
+      "Accept": "application/rss+xml, application/xml, text/xml"
+    }
   });
 
   if (!response.ok) {
@@ -56,10 +82,17 @@ async function getFeed(feed) {
   }
 
   const xml = await response.text();
-  const items = parseFeed(xml, feed);
+  let items = parseFeed(xml, feed);
+
+  if (feed.localOnly) {
+    items = items.filter(item => {
+      const text = `${item.title} ${item.description}`;
+      return LOCAL_WORDS.some(word => text.includes(word));
+    });
+  }
 
   if (!items.length) {
-    throw new Error("لم يتم العثور على أخبار قابلة للقراءة");
+    throw new Error("لم تصل أخبار من هذه الخلاصة");
   }
 
   return items;
@@ -70,7 +103,10 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/news") {
-      const results = await Promise.allSettled(FEEDS.map(getFeed));
+      const results = await Promise.allSettled(
+        FEEDS.map(getFeed)
+      );
+
       let items = [];
       const errors = [];
 
@@ -80,12 +116,15 @@ export default {
         } else {
           errors.push({
             category: FEEDS[index].key,
-            message: String(result.reason?.message || result.reason)
+            message: String(
+              result.reason?.message || result.reason
+            )
           });
         }
       });
 
       const seen = new Set();
+
       items = items.filter(item => {
         if (seen.has(item.link)) return false;
         seen.add(item.link);
@@ -93,15 +132,18 @@ export default {
       });
 
       items.sort((a, b) =>
-        new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0)
+        new Date(b.publishedAt || 0) -
+        new Date(a.publishedAt || 0)
       );
 
       return Response.json({
-        items: items.slice(0, 30),
+        items: items.slice(0, 40),
         updatedAt: new Date().toISOString(),
         errors
       }, {
-        headers: { "Cache-Control": "no-store" }
+        headers: {
+          "Cache-Control": "no-store"
+        }
       });
     }
 
