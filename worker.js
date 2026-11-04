@@ -6,6 +6,7 @@ const FEEDS = [
 const LOCAL_WORDS = ["كفر الشيخ","برج البرلس","بلطيم","مطوبس","دسوق","فوه","الحامول","بيلا","قلين","سيدي سالم","الرياض"];
 const CACHE_URL = "https://news-pulse.ali-zaza-332011.workers.dev/__internal/news-cache";
 const MAX_AGE = 7200;
+const ARTICLE_HOSTS = new Set(["alikhbariya.net","www.alikhbariya.net","youm7.com","www.youm7.com","arabic.cnn.com","skynewsarabia.com","www.skynewsarabia.com","noonpost.com","www.noonpost.com","aljazeera.net","www.aljazeera.net","aawsat.com","www.aawsat.com","annahar.com","www.annahar.com","alarabiya.net","www.alarabiya.net","hespress.com","www.hespress.com"]);
 
 function decodeEntities(value = "") {
   return value.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
@@ -77,6 +78,28 @@ async function refresh(cache, request) {
 export default {
   async fetch(request,env) {
     const url=new URL(request.url);
+    if(url.pathname === "/api/article") {
+      let target;
+      try { target=new URL(url.searchParams.get("url") || ""); } catch { return Response.json({error:"رابط غير صالح"},{status:400}); }
+      if(target.protocol!=="https:" || !ARTICLE_HOSTS.has(target.hostname)) return Response.json({error:"هذا المصدر غير مدعوم للعرض الداخلي بعد"},{status:400});
+      try {
+        const page=await fetch(target.href,{headers:{"User-Agent":"Mozilla/5.0 (compatible; NewsPulse/1.0)","Accept":"text/html"},redirect:"follow",cf:{cacheTtl:1800}});
+        if(!page.ok) throw new Error("publisher unavailable");
+        const html=await page.text();
+        const meta=(name)=>{
+          const tags=[...html.matchAll(/<meta\b[^>]*>/gi)].map(m=>m[0]);
+          for(const tag of tags){
+            const n=tag.match(/\b(?:property|name)=["']([^"']+)["']/i)?.[1];
+            const v=tag.match(/\bcontent=["']([^"']*)["']/i)?.[1];
+            if(n===name && v) return decodeEntities(v);
+          }
+          return "";
+        };
+        let image=meta("og:image")||meta("twitter:image");
+        try { image=new URL(image,target.href).href; } catch { image=""; }
+        return Response.json({title:meta("og:title"),description:meta("og:description")||meta("description"),image:image.startsWith("https://")?image:"",url:target.href},{headers:{"Cache-Control":"public, max-age=1800"}});
+      } catch { return Response.json({error:"تعذر تحميل بيانات الناشر الآن"},{status:502}); }
+    }
     if(url.pathname==="/api/news") {
       const cache= caches.default;
       const {response}=await cachedResponse(request,cache);
