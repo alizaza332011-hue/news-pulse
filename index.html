@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="utility"><div class="wrap utility-inner"><span>الأربعاء ٤ نوفمبر ٢٠٢٦</span><span class="utility-note">منصتك لمتابعة ما يحدث حولك</span><a href="#newsletter">النشرة البريدية</a></div></div>
+  <div class="utility"><div class="wrap utility-inner"><span><span id="todayDate">نبض الخبر</span></span><span class="utility-note">منصتك لمتابعة ما يحدث حولك</span><a href="#newsletter">النشرة البريدية</a></div></div>
   <header class="site-header"><div class="wrap masthead">
     <a class="brand" href="#top" aria-label="نبض الخبر الرئيسية"><span class="brand-mark">ن<span>+</span></span><span class="brand-name">نبض الخبر<small>NEWS</small></span></a>
     <div class="brand-center"><span class="eyebrow">منصة إخبارية مستقلة</span><strong>المعلومة أولاً.. والحقيقة دائماً</strong></div>
@@ -19,22 +19,13 @@
   <main id="top" class="wrap">
     <div class="breaking"><span class="breaking-label">موجز نبض</span><div class="breaking-text">الدقة قبل السرعة <b>•</b> نتحقق من المصادر قبل نشر الأخبار</div><span class="breaking-time">NEWS DESK</span></div>
     <section class="lead-layout" aria-label="أبرز الأخبار">
-      <article class="lead-story"><img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1400&q=85" alt="" onerror="this.style.display='none'"><div class="lead-shade"></div><div class="lead-content"><span class="tag">الواجهة الرئيسية</span><p class="lead-kicker">مساحة الخبر الرئيسي</p><h1>هنا يظهر أبرز عنوان إخباري في نبض الخبر</h1><p class="lead-desc">ملخص قصير وواضح يضع القارئ في قلب التفاصيل، مع رابط للمصدر الأصلي وتاريخ النشر.</p><a href="#latest" class="read-more">اقرأ التفاصيل <b>←</b></a></div></article>
-      <aside class="latest-box" id="latest"><div class="section-head"><div><span class="section-kicker">على مدار الساعة</span><h2>آخر الأخبار</h2></div><span class="live-dot">● مباشر</span></div>
-        <a class="latest-item" href="#local"><span class="latest-num">01</span><span><small>محليات</small><strong>عنوان الخبر المحلي الأحدث يظهر هنا</strong><em>منذ قليل</em></span></a>
-        <a class="latest-item" href="#egypt"><span class="latest-num">02</span><span><small>مصر</small><strong>عنوان موجز لخبر مصري مهم</strong><em>منذ ٢٠ دقيقة</em></span></a>
-        <a class="latest-item" href="#world"><span class="latest-num">03</span><span><small>العالم</small><strong>أبرز تطورات الأحداث حول العالم</strong><em>منذ ٤٥ دقيقة</em></span></a>
-        <a class="latest-item" href="#business"><span class="latest-num">04</span><span><small>اقتصاد</small><strong>متابعة لأهم الملفات الاقتصادية</strong><em>اليوم</em></span></a>
-        <a class="all-news" href="#sections">عرض كل الأقسام <b>←</b></a>
+      <article class="lead-story" id="leadStory"><img id="leadImage" src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1400&q=85" alt=""><div class="lead-shade"></div><div class="lead-content"><span class="tag" id="leadCategory">أبرز الأخبار</span><p class="lead-kicker" id="leadSource">نبض الخبر</p><h1 id="leadTitle">جارٍ تحميل أحدث الأخبار...</h1><p class="lead-desc" id="leadDescription">نستعرض أحدث العناوين من خلاصات الأخبار، مع رابط المصدر الأصلي لكل خبر.</p><a href="#latest" class="read-more" id="leadLink">تابع آخر الأخبار <b>←</b></a></div></article>
+      <aside class="latest-box" id="latest"><div class="section-head"><div><span class="section-kicker">على مدار الساعة</span><h2>آخر الأخبار</h2></div></div><div id="latestList" class="latest-list"><p class="loading-news">جارٍ جلب الأخبار...</p></div><a class="all-news" href="#sections">عرض كل الأقسام <b>←</b></a>
       </aside>
     </section>
-    <div class="demo-note">معاينة شكلية للتصميم — العناوين والتوقيتات هنا نماذج وليست أخبارًا منشورة</div>
+    <div class="demo-note" id="feedStatus">الأخبار المعروضة تُجلب من خلاصات RSS، وتفتح روابط المصادر الأصلية.</div>
     <section class="section-block" id="sections"><div class="section-title"><div><span class="section-kicker">تغطية شاملة</span><h2>الأخبار حسب الأقسام</h2></div><a href="#latest">كل الأخبار ←</a></div>
-      <div class="news-grid">
-        <article class="news-card" id="local"><div class="card-image img-local"><span>محليات</span></div><div class="card-body"><small>كفر الشيخ والمحافظات</small><h3>مساحة مخصصة لأهم أخبار منطقتك والمحافظات</h3><p>ملخص الخبر يظهر هنا في سطرين ليساعد القارئ على فهم الموضوع سريعًا.</p><a href="#latest">التفاصيل ←</a></div></article>
-        <article class="news-card" id="egypt"><div class="card-image img-egypt"><span>مصر</span></div><div class="card-body"><small>الشأن المصري</small><h3>تابع أبرز القرارات والتطورات في مصر</h3><p>عرض منظم للعناوين المهمة مع توضيح المصدر وتاريخ النشر.</p><a href="#latest">التفاصيل ←</a></div></article>
-        <article class="news-card" id="world"><div class="card-image img-world"><span>العالم</span></div><div class="card-body"><small>أخبار دولية</small><h3>نافذة على أهم الأحداث والتطورات العالمية</h3><p>تغطية مختصرة ومتوازنة للأخبار من مصادر موثوقة.</p><a href="#latest">التفاصيل ←</a></div></article>
-      </div>
+      <div class="news-grid" id="newsGrid"><p class="loading-news">جارٍ تحميل الأخبار...</p></div>
     </section>
     <section class="wide-feature" id="varieties"><div class="feature-copy"><span class="section-kicker">مساحة مختلفة</span><h2>منوعات وقصص تستحق أن تُروى</h2><p>قسم للعلوم والتكنولوجيا والثقافة والقصص الإنسانية والطرائف حول العالم.</p><a class="gold-button" href="#latest">اكتشف المنوعات <b>←</b></a></div><div class="feature-visual"><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="feature-symbol">ن</span><span class="feature-caption">STORIES · PEOPLE · IDEAS</span></div></section>
     <section class="section-block" id="video"><div class="section-title"><div><span class="section-kicker">شاهد الآن</span><h2>الفيديو</h2></div><a href="#video">كل الفيديوهات ←</a></div><div class="video-grid"><article class="video-card"><div class="video-thumb video-one"><span class="play">▶</span></div><h3>مساحة لعرض تقرير أو فيديو إخباري قصير</h3><small>فيديو • ٢:٣٠ دقيقة</small></article><article class="video-card"><div class="video-thumb video-two"><span class="play">▶</span></div><h3>ملخص بصري لأهم أحداث اليوم</h3><small>فيديو • ١:٤٥ دقيقة</small></article><article class="video-card"><div class="video-thumb video-three"><span class="play">▶</span></div><h3>قصة من قلب الشارع المصري</h3><small>فيديو • ٣:١٠ دقائق</small></article></div></section>
