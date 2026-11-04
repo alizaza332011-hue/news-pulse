@@ -4,7 +4,7 @@ const FEEDS = [
   { key: "local", label: "محليات", url: "https://alikhbariya.net/feeds/countries/eg.xml", localOnly: true }
 ];
 const LOCAL_WORDS = ["كفر الشيخ","برج البرلس","بلطيم","مطوبس","دسوق","فوه","الحامول","بيلا","قلين","سيدي سالم","الرياض"];
-const CACHE_PATH = "/__internal/news-cache";
+const CACHE_URL = "https://news-pulse-cache.invalid/__internal/news-cache";
 const MAX_AGE = 7200;
 
 function decodeEntities(value = "") {
@@ -65,12 +65,12 @@ async function collectNews() {
   return {items:items.slice(0,60),updatedAt:new Date().toISOString(),errors};
 }
 async function cachedResponse(request, cache) {
-  const key=new Request(new URL(CACHE_PATH,request.url).toString());
+  const key=new Request(CACHE_URL);
   return {key,response:await cache.match(key)};
 }
 async function refresh(cache, request) {
   const data=await collectNews();
-  const key=new Request(new URL(CACHE_PATH,request.url).toString());
+  const key=new Request(CACHE_URL);
   await cache.put(key,new Response(JSON.stringify(data),{headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"public, max-age="+MAX_AGE}}));
   return data;
 }
