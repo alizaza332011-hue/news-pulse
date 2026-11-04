@@ -1,37 +1,32 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#101010"><meta name="description" content="نبض الخبر — أخبار محلية ومصرية وعالمية بمصادر واضحة.">
-  <title>نبض الخبر | NEWS</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101820"><meta name="description" content="نبض الخبر — متابعة الأخبار المصرية والعربية والعالمية بمصادرها الأصلية.">
+<title>نبض الخبر | آخر الأخبار</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="utility"><div class="wrap utility-inner"><span><span id="todayDate">نبض الخبر</span></span><span class="utility-note">منصتك لمتابعة ما يحدث حولك</span><a href="#newsletter">النشرة البريدية</a></div></div>
-  <header class="site-header"><div class="wrap masthead">
-    <a class="brand" href="#top" aria-label="نبض الخبر الرئيسية"><span class="brand-mark">ن<span>+</span></span><span class="brand-name">نبض الخبر<small>NEWS</small></span></a>
-    <div class="brand-center"><span class="eyebrow">منصة إخبارية مستقلة</span><strong>المعلومة أولاً.. والحقيقة دائماً</strong></div>
-    <div class="header-actions"><button class="icon-btn" id="searchToggle" aria-label="فتح البحث">⌕</button><a class="live-link" href="#latest"><i></i> تابع آخر الأخبار</a></div>
-  </div>
-  <div class="nav-wrap"><div class="wrap nav-inner"><button class="menu-toggle" id="menuToggle">☰</button><nav id="mainNav"><a class="selected" href="#top">الرئيسية</a><a href="#local">محليات</a><a href="#egypt">مصر</a><a href="#world">العالم</a><a href="#business">اقتصاد</a><a href="#sports">رياضة</a><a href="#varieties">منوعات</a><a href="#video">فيديو</a><a href="#photos">صور</a></nav><span class="nav-date">NEWS / 24</span></div></div>
-  <div class="search-panel" id="searchPanel"><div class="wrap"><input id="searchInput" type="search" placeholder="ابحث في نبض الخبر..."><span>اكتب كلمة من عنوان الخبر للبحث في النماذج المعروضة</span></div></div>
-  </header>
-  <main id="top" class="wrap">
-    <div class="breaking"><span class="breaking-label">موجز نبض</span><div class="breaking-text">الدقة قبل السرعة <b>•</b> نتحقق من المصادر قبل نشر الأخبار</div><span class="breaking-time">NEWS DESK</span></div>
-    <section class="lead-layout" aria-label="أبرز الأخبار">
-      <article class="lead-story" id="leadStory"><img id="leadImage" src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1400&q=85" alt=""><div class="lead-shade"></div><div class="lead-content"><span class="tag" id="leadCategory">أبرز الأخبار</span><p class="lead-kicker" id="leadSource">نبض الخبر</p><h1 id="leadTitle">جارٍ تحميل أحدث الأخبار...</h1><p class="lead-desc" id="leadDescription">نستعرض أحدث العناوين من خلاصات الأخبار، مع رابط المصدر الأصلي لكل خبر.</p><a href="#latest" class="read-more" id="leadLink">تابع آخر الأخبار <b>←</b></a></div></article>
-      <aside class="latest-box" id="latest"><div class="section-head"><div><span class="section-kicker">على مدار الساعة</span><h2>آخر الأخبار</h2></div></div><div id="latestList" class="latest-list"><p class="loading-news">جارٍ جلب الأخبار...</p></div><a class="all-news" href="#sections">عرض كل الأقسام <b>←</b></a>
-      </aside>
-    </section>
-    <div class="demo-note" id="feedStatus">الأخبار المعروضة تُجلب من خلاصات RSS، وتفتح روابط المصادر الأصلية.</div>
-    <section class="section-block" id="sections"><div class="section-title"><div><span class="section-kicker">تغطية شاملة</span><h2>الأخبار حسب الأقسام</h2></div><a href="#latest">كل الأخبار ←</a></div>
-      <div class="news-grid" id="newsGrid"><p class="loading-news">جارٍ تحميل الأخبار...</p></div>
-    </section>
-    <section class="wide-feature" id="varieties"><div class="feature-copy"><span class="section-kicker">مساحة مختلفة</span><h2>منوعات وقصص تستحق أن تُروى</h2><p>قسم للعلوم والتكنولوجيا والثقافة والقصص الإنسانية والطرائف حول العالم.</p><a class="gold-button" href="#latest">اكتشف المنوعات <b>←</b></a></div><div class="feature-visual"><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="feature-symbol">ن</span><span class="feature-caption">STORIES · PEOPLE · IDEAS</span></div></section>
-    <section class="section-block" id="video"><div class="section-title"><div><span class="section-kicker">شاهد الآن</span><h2>الفيديو</h2></div><a href="#video">كل الفيديوهات ←</a></div><div class="video-grid"><article class="video-card"><div class="video-thumb video-one"><span class="play">▶</span></div><h3>مساحة لعرض تقرير أو فيديو إخباري قصير</h3><small>فيديو • ٢:٣٠ دقيقة</small></article><article class="video-card"><div class="video-thumb video-two"><span class="play">▶</span></div><h3>ملخص بصري لأهم أحداث اليوم</h3><small>فيديو • ١:٤٥ دقيقة</small></article><article class="video-card"><div class="video-thumb video-three"><span class="play">▶</span></div><h3>قصة من قلب الشارع المصري</h3><small>فيديو • ٣:١٠ دقائق</small></article></div></section>
-    <section class="trust-strip"><span class="trust-icon">✓</span><div><strong>المصدر جزء من الخبر</strong><p>كل خبر منشور يجب أن يحمل مصدره وتاريخ تحديثه. الأخبار غير المؤكدة تُحال للمراجعة ولا تُنشر تلقائيًا.</p></div><span class="trust-side">ثقة • وضوح • مسؤولية</span></section>
-    <section class="newsletter" id="newsletter"><div><span class="section-kicker">ابقَ على اطلاع</span><h2>أهم الأخبار.. إلى بريدك</h2><p>اشترك في نشرة نبض الخبر — ستُفعّل الخدمة عند ربط الموقع بنظام البريد.</p></div><form id="newsletterForm"><input type="email" placeholder="بريدك الإلكتروني" aria-label="بريدك الإلكتروني" required><button type="submit">قريبًا <b>←</b></button></form></section>
-  </main>
-  <footer><div class="wrap footer-main"><a class="brand footer-brand" href="#top"><span class="brand-mark">ن<span>+</span></span><span class="brand-name">نبض الخبر<small>NEWS</small></span></a><p>منصتك لمتابعة الأخبار المحلية والمصرية والعالمية بمهنية ووضوح.</p><div class="footer-links"><a href="#local">محليات</a><a href="#egypt">مصر</a><a href="#world">العالم</a><a href="#varieties">منوعات</a><a href="#newsletter">تواصل معنا</a></div></div><div class="footer-bottom"><div class="wrap">© ٢٠٢٦ نبض الخبر | NEWS — جميع الحقوق محفوظة <span>المعلومة أولاً</span></div></div></footer>
-  <script src="script.js"></script>
+<div class="topline"><div class="container top-inner"><span id="todayDate">نبض الخبر</span><span>المعلومة أولاً.. من مصدرها</span><a href="#footer">عن نبض الخبر</a></div></div>
+<header class="header"><div class="container masthead">
+<a class="brand" href="#top"><span class="brand-symbol">ن<span>+</span></span><span><b>نبض الخبر</b><small>NEWS PULSE</small></span></a>
+<div class="mast-note">منصة إخبارية مستقلة<br><strong>خبرك من المصدر.. بلا ضجيج</strong></div>
+<div class="head-tools"><button id="searchToggle" aria-label="فتح البحث">⌕</button><span class="live-indicator"><i></i> تغطية متجددة</span></div>
+</div>
+<nav class="nav"><div class="container nav-inner"><button class="menu-toggle" id="menuToggle">☰</button><div id="mainNav"><a href="#top">الرئيسية</a><a href="#latest">آخر الأخبار</a><a href="#egypt">مصر</a><a href="#world">العالم</a><a href="#local">محليات</a></div><span class="nav-label">NEWS / 24</span></div></nav>
+<div class="search-panel" id="searchPanel"><div class="container"><input id="searchInput" type="search" placeholder="ابحث عن خبر أو كلمة..."><span>تظهر النتائج داخل الأخبار المحمّلة</span></div></div>
+</header>
+<main class="container" id="top">
+<div class="ticker"><b>موجز الأخبار</b><span>عناوين من مصادرها الأصلية — اقرأ التفاصيل لدى الناشر</span><small>LIVE</small></div>
+<section class="lead-layout">
+<article class="hero" id="leadStory"><img id="leadImage" alt="" src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1400&q=80"><div class="hero-overlay"></div><div class="hero-copy"><span class="eyebrow" id="leadCategory">أبرز الأخبار</span><small id="leadSource">نبض الخبر</small><h1 id="leadTitle">جارٍ تحميل أحدث الأخبار...</h1><p id="leadDescription">نستعرض أبرز العناوين مع روابط المصادر الأصلية.</p><a id="leadLink" href="#latest">اقرأ التفاصيل ←</a></div></article>
+<aside class="latest-panel" id="latest"><div class="section-heading"><div><small>تحديثات متتابعة</small><h2>آخر الأخبار</h2></div><span>الأحدث</span></div><div id="latestList"><p class="loading">جارٍ تحميل الأخبار...</p></div></aside>
+</section>
+<div class="status-line" id="feedStatus">يتم تحميل الأخبار من خلاصات المصادر.</div>
+<section class="news-section" id="sections"><div class="section-heading main-heading"><div><small>من مصادر متعددة</small><h2>أحدث التغطيات</h2></div><span>الأخبار مرتبة حسب وقت النشر</span></div><div class="filters" id="filters"><button class="active" data-filter="all">الكل</button><button data-filter="egypt">مصر</button><button data-filter="world">العالم</button><button data-filter="local">محليات</button></div><div class="news-grid" id="newsGrid"><p class="loading">جارٍ تحميل الأخبار...</p></div></section>
+<section class="editorial"><div class="editorial-mark">ن+</div><div><small>معايير النشر</small><h2>المصدر واضح.. والخبر مسؤولية</h2><p>نعرض العناوين والملخصات المتاحة في الخلاصات، ونحيلك إلى الناشر الأصلي لقراءة التفاصيل. لا ننسب لأنفسنا محتوى المصادر.</p></div></section>
+</main>
+<footer id="footer"><div class="container footer-inner"><a class="brand" href="#top"><span class="brand-symbol">ن<span>+</span></span><span><b>نبض الخبر</b><small>NEWS PULSE</small></span></a><p>متابعة للأخبار المحلية والمصرية والعالمية بمصادر واضحة.</p><span>© 2026 نبض الخبر</span></div></footer>
+<script src="script.js"></script>
 </body></html>
