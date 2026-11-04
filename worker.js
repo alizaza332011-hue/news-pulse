@@ -4,7 +4,7 @@ const FEEDS = [
   { key: "local", label: "محليات", url: "https://alikhbariya.net/feeds/countries/eg.xml", localOnly: true }
 ];
 const LOCAL_WORDS = ["كفر الشيخ","برج البرلس","بلطيم","مطوبس","دسوق","فوه","الحامول","بيلا","قلين","سيدي سالم","الرياض"];
-const CACHE_URL = "https://news-pulse-cache.invalid/__internal/news-cache";
+const CACHE_URL = "https://news-pulse.ali-zaza-332011.workers.dev/__internal/news-cache";
 const MAX_AGE = 7200;
 
 function decodeEntities(value = "") {
