@@ -68,7 +68,7 @@ function renderAll(data){
   document.getElementById("leadTitle").textContent=lead.title;
   document.getElementById("leadDescription").textContent=lead.description||"افتح الخبر لقراءة التفاصيل المتاحة.";
   const hero=document.getElementById("leadStory"),leadImage=document.getElementById("leadImage");
-  const img=safeUrl(lead.image);if(img){leadImage.src=img;leadImage.style.display="block";}else{leadImage.style.display="none";hero.classList.add("hero-no-image");}
+  const img=topicFor(lead).url;hero.classList.remove("hero-no-image");leadImage.onerror=()=>{leadImage.style.display="none";hero.classList.add("hero-no-image");};leadImage.onload=()=>{leadImage.style.display="block";hero.classList.remove("hero-no-image");};leadImage.src=img;
  }
  document.getElementById("latestList").innerHTML=allNews.slice(0,8).map((n,i)=>'<button class="latest-item" type="button" data-index="'+i+'"><span class="latest-num">'+String(i+1).padStart(2,"0")+'</span><span><small>'+esc(n.categoryLabel||"أخبار")+'</small><strong>'+esc(n.title)+'</strong><em>'+esc(n.source||"المصدر")+' • '+esc(fmt(n.publishedAt))+'</em></span></button>').join("")||"<p>لا توجد أخبار متاحة حاليًا.</p>";
  render();document.getElementById("feedStatus").textContent="تم تحميل "+allNews.length+" خبرًا. يتم فحص الخلاصة كل ساعة.";
